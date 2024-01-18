@@ -1,0 +1,14 @@
+version: 2
+models:
+  - name: stg_cc_parcel
+    columns:
+      - name: parcel_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_cc_parcel_products
+    columns:
+      - name: "(parcel_id|| '-' || model_name)"
+        tests:
+          - not_null
+          - unique
