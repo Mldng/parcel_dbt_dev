@@ -1,5 +1,5 @@
 SELECT
-Parcel_id as Parcel_id
+Parcel_id as parcel_id
 , Parcel_tracking as parcel_tracking
 , Transporter as transporter
 , Priority as priority
