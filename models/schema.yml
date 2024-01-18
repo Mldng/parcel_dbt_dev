@@ -1,0 +1,8 @@
+version: 2
+models:
+  - name: cc_parcel_product
+    columns:
+      - name: parcel_id
+        tests:
+          - not_null
+          - unique
