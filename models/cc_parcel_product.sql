@@ -1,16 +1,15 @@
 WITH nb_products_parcel AS (
   SELECT
     parcel_id
-    ,model_name
+    ,COUNT(DISTINCT(model_name)) AS nb_models
     ,SUM(qty) AS qty
   FROM {{ref("stg_cc_parcel_products")}}
-  GROUP BY parcel_id, model_name
+  GROUP BY parcel_id
 )
 
 SELECT
   ### Key ###
   parcel_id
-  ,model_name
   ###########
   -- parcel infos
   ,parcel_tracking
@@ -39,5 +38,6 @@ SELECT
   ,IF(date_delivery IS NULL,NULL,IF(DATE_DIFF(date_delivery,date_purchase,DAY)>5,1,0)) AS delay
   -- Metrics --
   ,qty
+  , nb_models
 FROM {{ref("stg_cc_parcel")}}
-LEFT JOIN nb_products_parcel USING (parcel_id,model_name)
+LEFT JOIN nb_products_parcel USING (parcel_id)
